@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+
+    <style>
+        body {
+            font-variant-caps: all-petite-caps;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* ความสูงของ viewport */
+            margin: 0;
+            background-color: #f0f0f0; /* เพิ่มสีพื้นหลังเพื่อให้เห็นชัดขึ้น */
+        }
+
+        .widget {
+            padding: 20px; /* เพิ่ม padding เพื่อให้เนื้อหาดูห่างจากกรอบ */
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            max-width: 95%;
+            margin: auto;
+            border: 3px solid #000000;
+            border-radius: 5px;
+            box-shadow: 2px 2px 1px 0px #000000;
+            transition: color 0.5s ease, border-color 0.5s ease; /* เพิ่ม transition สำหรับการเปลี่ยนสีกรอบ */
+            background-color: #ffffff; /* เพิ่มสีพื้นหลังให้กับ widget */
+        }
+
+        .greet {
+            font-size: 3em;
+            text-align: center; /* ทำให้ข้อความอยู่กลาง */
+        }
+
+        .date {
+            font-family: monospace;
+            font-size: 2em;
+            text-align: center; /* ทำให้ข้อความอยู่กลาง */
+        }
+
+        .clock {
+            font-family: monospace;
+            font-size: 2em;
+            text-align: center; /* ทำให้ข้อความอยู่กลาง */
+        }
+
+        .time {
+            display: inline-block;
+            min-width: 20px;
+        }
+
+        .colon {
+            font-size: 1em;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="widget">
+        <div class="greet" id="greet"></div>
+        <div class="date" id="date"></div>
+        <div class="clock">
+            <div class="time" id="hour"></div>
+            <div class="colon">:</div>
+            <div class="time" id="min"></div>
+            <div class="colon">:</div>
+            <div class="time" id="sec"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function dispalyGreetings(today) {
+    const hrs = today.getHours();
+    const name = "Tunnut";
+    let greet = '';
+
+    if (hrs < 12) {
+        greet = 'Good Morning ' + name + '<br>Time to write a new chapter today';
+    } else if (hrs >= 12 && hrs <= 17) {
+        greet = 'Good Afternoon ' + name + '<br>Keep pushing, the day’s not over yet!';
+    } else if (hrs >= 17 && hrs <= 24) {
+        greet = 'Good Evening ' + name + '<br>You\'ve done well today. Now it’s time to rest, reflect, and dream.';
+    }
+
+    document.getElementById('greet').innerHTML = greet;
+}
+
+function dispalyDate(today) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dayName = days[today.getDay()];
+    const monthName = monthNames[today.getMonth()];
+    const date = today.getDate();
+    const year = today.getFullYear();
+    document.getElementById('date').innerHTML = dayName + ", " + monthName + " " + date + " " + year;
+}
+
+function dispalyClock(today) {
+    const hour = padZeros(twelveHour(today.getHours()));
+    const minutes = padZeros(today.getMinutes());
+    const seconds = padZeros(today.getSeconds());
+    const period = today.getHours() >= 12 ? 'pm' : 'am';
+    
+    document.getElementById('hour').innerHTML = hour;
+    document.getElementById('min').innerHTML = minutes;
+    document.getElementById('sec').innerHTML = `${seconds} ${period}`;
+}
+
+function twelveHour(hour) {
+    if (hour > 12) {
+        return hour - 12;
+    } else if (hour === 0) {
+        return 12;
+    } else {
+        return hour;
+    }
+}
+
+function padZeros(num) {
+    return num < 10 ? '0' + num : num;
+}
+
+// ฟังก์ชันสำหรับเปลี่ยนสีข้อความและสีกรอบตามเวลา
+function updateWidgetColor() {
+    const widgetElement = document.querySelector('.widget');
+    const currentHour = new Date().getHours();
+    
+    if (currentHour >= 6 && currentHour < 18) {
+        // ช่วงเวลา 6:00 - 18:00 (กลางวัน)
+        widgetElement.style.color = '#000000';       // สีข้อความเป็นสีดำ
+        widgetElement.style.borderColor = '#000000'; // สีกรอบเป็นสีดำ
+    } else {
+        // ช่วงเวลา 18:00 - 6:00 (กลางคืน)
+        widgetElement.style.color = '#FFFFFF';       // สีข้อความเป็นสีขาว
+        widgetElement.style.borderColor = '#FFFFFF'; // สีกรอบเป็นสีขาว
+    }
+}
+
+function dispalyWidget() {
+    const today = new Date();
+    dispalyGreetings(today);
+    dispalyDate(today);
+    dispalyClock(today);
+    updateWidgetColor(); // เรียกฟังก์ชันเปลี่ยนสี
+    setTimeout(dispalyWidget, 500);
+}
+
+dispalyWidget();
+</script>
+
+</body>
+</html>
