@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+	<!-- Google Font -->
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+
+	<!-------->
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+
+		.navMenu {
+			font-family: 'Advent Pro', sans-serif;
+			padding: 8px;
+			text-align: center;
+			margin: 7px auto;
+			width: fit-content;
+		}
+
+		.navMenu a {
+			color: #272727;
+			text-decoration: none;
+			text-transform: uppercase;
+			display: inline-block;
+			padding: 6px;
+		}
+
+		.background {
+			background-color: #ece5f0;
+		}
+
+		.border {
+			border: 1px solid #cccccc;
+
+		}
+
+		.navMenu a:hover {
+
+			color: #d09c0b;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navMenu  border">
+		<a id="projects" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-bars-progress"></i> Projects</a>
+		<a id="areas" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-layer-group"></i> Areas</a>
+		<a id="resources" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-circle-info"></i> Resources</a>
+		<a id="archive" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-box-archive"></i> Archive</a>
+
+
+
+	</nav>
+
+
+	<script>
+
+		let direction = "vertical";
+		if (direction === "vertical") {
+			document.head.insertAdjacentHTML("beforeend", `<style>.navMenu a {display: block; text-align:left; margin:7px} i{width:15px; margin-right:5px} .navMenu{margin:3px}</style>`)
+		}
+
+
+		function navigate(id) {
+
+			if (id == 'projects')
+				window.open("https://www.notion.so/Project-999c1b60cecd4b1681d62de58e4658d6?pvs=4", '_blank').focus();
+			else if (id == "areas")
+				window.open("https://www.notion.so/Areas-a081ea9fb08c4b198500d953ee80b1f9?pvs=4", '_blank').focus();
+			else if (id == "resources")
+				window.open("https://www.notion.so/Resources-938c813ede064a289a234b6c66ca4133?pvs=25", '_blank').focus();
+			else if (id == "archive")
+				window.open("https://www.notion.so/Archive-535a83d5ef70480492ac7a65288a87eb?pvs=25", '_blank').focus();
+
+		}
+	</script>
+
+
+</body>
+
+</html>
